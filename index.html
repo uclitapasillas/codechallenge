@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Invertir Cadena con Javascript</title>
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap">
+  <style>
+    body {
+      font-family: 'Montserrat', sans-serif;
+    }
+  </style>
+</head>
+<body>
+
+<script>
+
+  //Activo un Prompt con Sweet Alert para recibir la Cadena
+  //Mando el Value ingresado por método POST al controlador Invertir Cadena
+  //Recibo el data procesado del lado del Servidor (Ver assets/php/controller/invertirCadena.php)
+  Swal.fire({
+    title: 'Escriba el texto a invertir:',
+    input: 'text',
+    showCancelButton: false,
+    confirmButtonText: 'Aceptar',
+    inputValidator: (value) => {
+      if (!value) {
+        return '¡Por favor, ingrese un texto!';
+      } else {
+        $.ajax({
+          url:'assets/php/controller/invertirCadena.php',
+          type:'POST',
+          data:{'value': value},
+          success:function(data){
+            Swal.fire({
+              title: 'Reverso de Cadena',
+              text: data,
+              icon: 'success',
+              customClass: {
+                container: 'montserrat-font',
+              },
+            });
+          }
+        })
+      }
+    },
+  });
+
+</script>
+
+</body>
+</html>
